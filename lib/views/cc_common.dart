@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 List<String> countryNameList = [
   "United Arab Emirates Dirham",
   "Afghan Afghani",

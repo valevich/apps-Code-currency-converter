@@ -3,12 +3,13 @@ library currency_base_data;
 import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:fluttercurrencyconverter/model/serializer/serializers.dart';
+import '../model/cc_serializers.dart';
 
 part 'currency_base_data.g.dart';
-abstract class CurrencyBaseData  implements Built<CurrencyBaseData,CurrencyBaseDataBuilder>{
-    //Fields
+
+abstract class CurrencyBaseData
+    implements Built<CurrencyBaseData, CurrencyBaseDataBuilder> {
+  //Fields
   double get AED;
   double get AFN;
   double get ALL;
@@ -180,15 +181,19 @@ abstract class CurrencyBaseData  implements Built<CurrencyBaseData,CurrencyBaseD
   double get ZAR;
   double get ZMW;
   double get ZWL;
-     CurrencyBaseData._();
-  factory CurrencyBaseData([updates(CurrencyBaseDataBuilder b)]) = _$CurrencyBaseData;
+  CurrencyBaseData._();
+  factory CurrencyBaseData([updates(CurrencyBaseDataBuilder b)]) =
+      _$CurrencyBaseData;
 
-  static Serializer<CurrencyBaseData> get serializer => _$currencyBaseDataSerializer;
-   String toJson(){
-    return json.encode(serializers.serializeWith(CurrencyBaseData.serializer,this));
-  }
-  static CurrencyBaseData fromJson(String jsonString){
-    return serializers.deserializeWith(CurrencyBaseData.serializer,json.decode(jsonString));
+  static Serializer<CurrencyBaseData> get serializer =>
+      _$currencyBaseDataSerializer;
+  String toJson() {
+    return json
+        .encode(serializers.serializeWith(CurrencyBaseData.serializer, this));
   }
 
+  static CurrencyBaseData fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        CurrencyBaseData.serializer, json.decode(jsonString));
+  }
 }

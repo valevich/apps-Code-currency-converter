@@ -8,7 +8,7 @@ class RowButtons extends StatelessWidget {
   final onSaveCallBack onSave;
   final int activePageIndex;
 
-  RowButtons({this.onSave,this.activePageIndex=0});
+  RowButtons({this.onSave, this.activePageIndex = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +31,22 @@ class RowButtons extends StatelessWidget {
               onTap: () {
                 onSave(0);
               },
-              child: singleButtonWidget("Converter",activeColor: activePageIndex==0?Colors.black:Colors.white)),
+              child: singleButtonWidget("Converter",
+                  activeColor:
+                      activePageIndex == 0 ? Colors.white : Colors.black)),
           GestureDetector(
               onTap: () {
                 onSave(1);
               },
-              child: singleButtonWidget("Rates",activeColor: activePageIndex==1?Colors.black:Colors.white)),
-          GestureDetector(
-              onTap: () {
-                onSave(2);
-              },
-              child: singleButtonWidget("Info",activeColor: activePageIndex==2?Colors.black:Colors.white)),
+              child: singleButtonWidget("Rates",
+                  activeColor:
+                      activePageIndex == 1 ? Colors.white : Colors.black)),
         ],
       ),
     );
   }
 
-  Widget singleButtonWidget(String text,{Color activeColor=Colors.white}) {
+  Widget singleButtonWidget(String text, {Color activeColor = Colors.white}) {
     return Container(
       child: Text(
         text,

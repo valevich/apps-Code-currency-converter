@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:fluttercurrencyconverter/repository/exception/exceptions.dart';
-import 'package:fluttercurrencyconverter/repository/repository.dart';
-import './bloc.dart';
+import '../../services/cc_exceptions.dart';
+import '../../services/cc_repository.dart';
+import './cc_bloc.dart';
 
-class CurrencyConverterBloc extends Bloc<CurrencyConverterEvent, CurrencyConverterState> {
+class CurrencyConverterBloc
+    extends Bloc<CurrencyConverterEvent, CurrencyConverterState> {
   final Repository _repository;
-  CurrencyConverterBloc(Repository repository) : assert(repository!=null), _repository=repository;
+  CurrencyConverterBloc(Repository repository)
+      : assert(repository != null),
+        _repository = repository;
 
   @override
   CurrencyConverterState get initialState => CurrencyConverterLoading();
@@ -16,19 +19,21 @@ class CurrencyConverterBloc extends Bloc<CurrencyConverterEvent, CurrencyConvert
   Stream<CurrencyConverterState> mapEventToState(
     CurrencyConverterEvent event,
   ) async* {
-    if (event is GetConvertCurrency){
+    if (event is GetConvertCurrency) {
       yield* _mapOfGetConvertCurrency(event);
     }
   }
 
-  Stream<CurrencyConverterState> _mapOfGetConvertCurrency(GetConvertCurrency event) async*{
+  Stream<CurrencyConverterState> _mapOfGetConvertCurrency(
+      GetConvertCurrency event) async* {
     yield CurrencyConverterLoading();
-    try{
-      final response=await _repository.getConvertCurrency(from: event.from,to: event.to);
+    try {
+      final response =
+          await _repository.getConvertCurrency(from: event.from, to: event.to);
       yield CurrencyConverterLoaded(response);
-    }on ServerException catch(e){
+    } on ServerException catch (e) {
       yield CurrencyConverterFailure(e.message);
-    }on SocketException catch(e){
+    } on SocketException catch (e) {
       print("${e.message},${e.address},${e.port}");
     }
   }

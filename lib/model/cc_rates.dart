@@ -3,12 +3,12 @@ library rates;
 import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:fluttercurrencyconverter/model/serializer/serializers.dart';
+import '../model/cc_serializers.dart';
 
-part 'rates.g.dart';
-abstract class Rates  implements Built<Rates,RatesBuilder>{
-    //Fields
+part 'cc_rates.g.dart';
+
+abstract class Rates implements Built<Rates, RatesBuilder> {
+  //Fields
   double get AED;
   double get AFN;
   double get ALL;
@@ -180,15 +180,16 @@ abstract class Rates  implements Built<Rates,RatesBuilder>{
   double get ZAR;
   double get ZMW;
   double get ZWL;
-     Rates._();
+  Rates._();
   factory Rates([updates(RatesBuilder b)]) = _$Rates;
 
   static Serializer<Rates> get serializer => _$ratesSerializer;
-   String toJson(){
-    return json.encode(serializers.serializeWith(Rates.serializer,this));
-  }
-  static Rates fromJson(String jsonString){
-    return serializers.deserializeWith(Rates.serializer,json.decode(jsonString));
+  String toJson() {
+    return json.encode(serializers.serializeWith(Rates.serializer, this));
   }
 
+  static Rates fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Rates.serializer, json.decode(jsonString));
+  }
 }
